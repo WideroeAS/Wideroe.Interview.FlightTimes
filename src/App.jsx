@@ -1,46 +1,15 @@
-import { useState } from "react";
 import "./App.css";
-import { useEffect } from "react";
+
+/*
+    `https://api.allorigins.win/get?url=${encodeURIComponent(
+        "https://avinor.no/Api/Flights/Airport/BOO?direction=a&start=2022-09-25T22:00:00Z&end=2022-09-26T21:59:59Z&language=no"
+    )}`
+    */
 
 function App() {
-  const [airport, setAirport] = useState("BOO");
-  const [arrivals, setArrivals] = useState([]);
-  const [departures, setDepartures] = useState([]);
-
-  useEffect(() => {
-    fetch(
-      `https://waainfoscreen-test.wf.aero/infoscreen/flightinfo/${airport}`,
-      {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setArrivals(data.arrivals);
-        setDepartures(data.departures);
-      });
-  }, []);
-
   return (
     <div className="App">
       <p>Hello world</p>
-      {arrivals &&
-        arrivals.map((flight, index) => (
-          <div key={index}>
-            <p>{flight.id}</p>
-          </div>
-        ))}
-
-      {departures &&
-        departures.map((flight, index) => (
-          <div key={index}>
-            <p>{flight.id}</p>
-          </div>
-        ))}
     </div>
   );
 }
